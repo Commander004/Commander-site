@@ -1,7 +1,3 @@
-/* =========================
-   Reset
-========================= */
-
 * {
 
     margin:0;
@@ -11,9 +7,6 @@
 }
 
 
-/* =========================
-   Body
-========================= */
 
 body {
 
@@ -43,10 +36,6 @@ body {
 
 
 
-/* =========================
-   Container
-========================= */
-
 
 .profile-container {
 
@@ -58,13 +47,11 @@ body {
 
 
 
-/* =========================
-   Logo
-========================= */
+
+/* Logo */
 
 
 .logo-box {
-
 
     width:120px;
 
@@ -99,9 +86,7 @@ body {
     border-radius:4px;
 
 
-    animation:
-
-    logoGlow 2.5s infinite alternate;
+    animation:logoGlow 2.5s infinite alternate;
 
 
 }
@@ -124,7 +109,7 @@ body {
 
         box-shadow:
 
-        0 0 80px rgba(139,92,246,1);
+        0 0 90px rgba(139,92,246,1);
 
     }
 
@@ -133,9 +118,8 @@ body {
 
 
 
-/* =========================
-   Title
-========================= */
+
+/* Title */
 
 
 h1 {
@@ -167,7 +151,7 @@ h1 {
 
         text-shadow:
 
-        0 0 35px rgba(139,92,246,1);
+        0 0 40px rgba(139,92,246,1);
 
     }
 
@@ -176,14 +160,11 @@ h1 {
 
 
 
-/* =========================
-   Inputs
-========================= */
+
+/* Username */
 
 
-.input-box,
-.avatar-box {
-
+.input-box {
 
     margin-top:35px;
 
@@ -207,6 +188,7 @@ input {
 
 
     width:280px;
+
 
     padding:15px;
 
@@ -240,56 +222,94 @@ input:focus {
 
     0 0 25px rgba(139,92,246,.8);
 
-
 }
 
 
 
 
-/* =========================
-   Avatar
-========================= */
+
+/* Avatars */
 
 
-.avatar {
+.avatar-box {
+
+    margin-top:35px;
+
+}
 
 
-    width:120px;
 
-    height:120px;
-
-
-    margin:auto;
+.avatar-list {
 
 
-    display:flex;
+    margin-top:20px;
+
+
+    display:grid;
+
+
+    grid-template-columns:repeat(3,80px);
+
+
+    gap:15px;
+
 
     justify-content:center;
 
-    align-items:center;
+
+}
 
 
-    background:#17171c;
+
+.avatar-list img {
+
+
+    width:80px;
+
+    height:80px;
+
+
+    object-fit:cover;
+
+
+    border-radius:12px;
 
 
     border:2px solid #8b5cf6;
 
 
-    border-radius:15px;
+    cursor:pointer;
+
+
+    transition:.3s;
 
 
     box-shadow:
 
-    0 0 25px rgba(139,92,246,.4);
+    0 0 15px rgba(139,92,246,.3);
 
 
 }
 
 
 
-/* =========================
-   Button
-========================= */
+.avatar-list img:hover {
+
+
+    transform:scale(1.1);
+
+
+    box-shadow:
+
+    0 0 35px rgba(139,92,246,.9);
+
+}
+
+
+
+
+
+/* Button */
 
 
 .create-button {
@@ -337,7 +357,6 @@ input:focus {
 
 
     background:#b794ff;
-
 
 }
 
