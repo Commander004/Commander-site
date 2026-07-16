@@ -6,15 +6,11 @@ canvas.height = 500;
 
 
 // =====================
-// WORLD SETTINGS
+// WORLD
 // =====================
 
 const tileSize = 32;
 
-
-// =====================
-// BIG MAP
-// =====================
 
 const maze = [
 
@@ -66,7 +62,6 @@ let player = {
 };
 
 
-// find player start
 
 for(let y=0; y<maze.length; y++){
 
@@ -99,10 +94,10 @@ let camera = {
 
 
 // =====================
-// KEYS
+// INPUT
 // =====================
 
-let keys={};
+let keys = {};
 
 
 window.addEventListener("keydown",(e)=>{
@@ -138,13 +133,11 @@ function isWall(x,y){
 
     return maze[row][col] === "#";
 
-
 }
 
 
 
 function canMove(x,y){
-
 
     return (
 
@@ -154,7 +147,6 @@ function canMove(x,y){
         !isWall(x+player.size,y+player.size)
 
     );
-
 
 }
 
@@ -199,9 +191,6 @@ function update(){
 
 
 
-
-    // CAMERA FOLLOW
-
     camera.x = player.x - canvas.width/2;
     camera.y = player.y - canvas.height/2;
 
@@ -217,9 +206,9 @@ function update(){
 function draw(){
 
 
-    // Background
+    // background
 
-    ctx.fillStyle="#030304";
+    ctx.fillStyle="#050507";
 
     ctx.fillRect(
         0,
@@ -230,9 +219,8 @@ function draw(){
 
 
 
-    // MAP DRAW
-
     for(let y=0; y<maze.length; y++){
+
 
         for(let x=0; x<maze[y].length; x++){
 
@@ -247,37 +235,30 @@ function draw(){
             if(maze[y][x] !== "#"){
 
 
-                ctx.fillStyle = "#111116";
+                ctx.fillStyle="#101014";
 
 
                 ctx.fillRect(
-
                     screenX,
                     screenY,
-
                     tileSize,
                     tileSize
-
                 );
 
 
-                // small floor detail
+                // floor detail
 
-                ctx.fillStyle = "rgba(255,255,255,0.03)";
-
+                ctx.fillStyle="rgba(255,255,255,0.04)";
 
                 ctx.fillRect(
-
-                    screenX + 5,
-                    screenY + 5,
-
-                    4,
-                    4
-
+                    screenX+8,
+                    screenY+8,
+                    3,
+                    3
                 );
 
-            }
 
+            }
 
 
 
@@ -286,46 +267,32 @@ function draw(){
             if(maze[y][x] === "#"){
 
 
-                ctx.shadowBlur = 18;
+                ctx.shadowBlur=15;
+                ctx.shadowColor="#8b5cf6";
 
-                ctx.shadowColor = "#8b5cf6";
 
-
-                ctx.fillStyle = "#242033";
+                ctx.fillStyle="#252030";
 
 
                 ctx.fillRect(
-
                     screenX,
                     screenY,
-
                     tileSize,
                     tileSize
-
                 );
 
 
-
-                // wall edge
-
-                ctx.strokeStyle = "#8b5cf6";
-
-                ctx.lineWidth = 1;
-
+                ctx.strokeStyle="#8b5cf6";
 
                 ctx.strokeRect(
-
                     screenX,
                     screenY,
-
                     tileSize,
                     tileSize
-
                 );
 
 
             }
-
 
 
 
@@ -334,117 +301,18 @@ function draw(){
             if(maze[y][x] === "E"){
 
 
-                ctx.shadowBlur = 25;
-
-                ctx.shadowColor = "#00ffff";
-
-
-                ctx.fillStyle = "#00ffff";
-
-
-                ctx.fillRect(
-
-                    screenX,
-                    screenY,
-
-                    tileSize,
-                    tileSize
-
-                );
-
-
-            }
-
-
-
-        }
-
-    }
-
-
-
-    ctx.shadowBlur = 0;
-
-
-
-    // PLAYER
-
-    ctx.shadowBlur = 30;
-
-    ctx.shadowColor = "#b794ff";
-
-
-    ctx.fillStyle = "#b794ff";
-
-
-    ctx.fillRect(
-
-        player.x - camera.x,
-        player.y - camera.y,
-
-        player.size,
-        player.size
-
-    );
-
-
-    ctx.shadowBlur = 0;
-
-
-}
-
-
-    // MAP DRAW
-
-    for(let y=0; y<maze.length; y++){
-
-        for(let x=0; x<maze[y].length; x++){
-
-
-
-            let screenX = x*tileSize - camera.x;
-            let screenY = y*tileSize - camera.y;
-
-
-
-            if(maze[y][x]=="#"){
-
-
-                ctx.fillStyle="#8b5cf6";
-
-                ctx.shadowBlur=15;
-                ctx.shadowColor="#8b5cf6";
-
-
-                ctx.fillRect(
-
-                    screenX,
-                    screenY,
-                    tileSize,
-                    tileSize
-
-                );
-
-            }
-
-
-
-            if(maze[y][x]=="E"){
+                ctx.shadowBlur=25;
+                ctx.shadowColor="#00ffff";
 
 
                 ctx.fillStyle="#00ffff";
 
-                ctx.shadowBlur=20;
-                ctx.shadowColor="#00ffff";
-
 
                 ctx.fillRect(
-
                     screenX,
                     screenY,
                     tileSize,
                     tileSize
-
                 );
 
             }
@@ -462,10 +330,11 @@ function draw(){
 
     // PLAYER
 
-    ctx.fillStyle="#b794ff";
-
-    ctx.shadowBlur=25;
+    ctx.shadowBlur=30;
     ctx.shadowColor="#b794ff";
+
+
+    ctx.fillStyle="#b794ff";
 
 
     ctx.fillRect(
