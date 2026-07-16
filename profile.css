@@ -1,1 +1,367 @@
+/* =========================
+   Reset
+========================= */
 
+* {
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+}
+
+
+/* =========================
+   Body
+========================= */
+
+body {
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+
+    background:
+
+    radial-gradient(
+        circle at center,
+        rgba(139,92,246,.3),
+        #09090b 65%
+    );
+
+
+    color:white;
+
+    font-family:Arial,sans-serif;
+
+}
+
+
+
+/* =========================
+   Container
+========================= */
+
+
+.profile-container {
+
+    text-align:center;
+
+    animation:pageEnter 1.2s ease forwards;
+
+}
+
+
+
+/* =========================
+   Logo
+========================= */
+
+
+.logo-box {
+
+
+    width:120px;
+
+    height:120px;
+
+
+    margin:auto;
+
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+
+    background:#8b5cf6;
+
+
+    color:white;
+
+
+    font-family:monospace;
+
+
+    font-size:75px;
+
+
+    font-weight:900;
+
+
+    border-radius:4px;
+
+
+    animation:
+
+    logoGlow 2.5s infinite alternate;
+
+
+}
+
+
+
+@keyframes logoGlow {
+
+
+    from {
+
+        box-shadow:
+
+        0 0 20px rgba(139,92,246,.5);
+
+    }
+
+
+    to {
+
+        box-shadow:
+
+        0 0 80px rgba(139,92,246,1);
+
+    }
+
+}
+
+
+
+
+/* =========================
+   Title
+========================= */
+
+
+h1 {
+
+    margin-top:35px;
+
+    font-size:40px;
+
+
+    animation:textGlow 3s infinite alternate;
+
+}
+
+
+
+@keyframes textGlow {
+
+
+    from {
+
+        text-shadow:
+
+        0 0 10px rgba(139,92,246,.4);
+
+    }
+
+
+    to {
+
+        text-shadow:
+
+        0 0 35px rgba(139,92,246,1);
+
+    }
+
+}
+
+
+
+
+/* =========================
+   Inputs
+========================= */
+
+
+.input-box,
+.avatar-box {
+
+
+    margin-top:35px;
+
+}
+
+
+
+label {
+
+    display:block;
+
+    margin-bottom:12px;
+
+    font-size:18px;
+
+}
+
+
+
+input {
+
+
+    width:280px;
+
+    padding:15px;
+
+
+    background:#17171c;
+
+
+    border:1px solid #8b5cf6;
+
+
+    border-radius:12px;
+
+
+    color:white;
+
+
+    outline:none;
+
+
+    font-size:16px;
+
+
+}
+
+
+
+input:focus {
+
+
+    box-shadow:
+
+    0 0 25px rgba(139,92,246,.8);
+
+
+}
+
+
+
+
+/* =========================
+   Avatar
+========================= */
+
+
+.avatar {
+
+
+    width:120px;
+
+    height:120px;
+
+
+    margin:auto;
+
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+
+    background:#17171c;
+
+
+    border:2px solid #8b5cf6;
+
+
+    border-radius:15px;
+
+
+    box-shadow:
+
+    0 0 25px rgba(139,92,246,.4);
+
+
+}
+
+
+
+/* =========================
+   Button
+========================= */
+
+
+.create-button {
+
+
+    margin-top:40px;
+
+
+    padding:15px 45px;
+
+
+    border:none;
+
+
+    border-radius:12px;
+
+
+    background:#8b5cf6;
+
+
+    color:white;
+
+
+    font-size:17px;
+
+
+    cursor:pointer;
+
+
+    box-shadow:
+
+    0 0 30px rgba(139,92,246,.5);
+
+
+    transition:.3s;
+
+}
+
+
+
+.create-button:hover {
+
+
+    transform:translateY(-5px);
+
+
+    background:#b794ff;
+
+
+}
+
+
+
+
+@keyframes pageEnter {
+
+
+    from {
+
+        opacity:0;
+
+        transform:scale(.85);
+
+    }
+
+
+    to {
+
+        opacity:1;
+
+        transform:scale(1);
+
+    }
+
+}
