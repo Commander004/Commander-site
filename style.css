@@ -413,3 +413,130 @@ h1 {
     }
 
 }
+
+/* =========================
+   Welcome Page
+========================= */
+
+.welcome-container{
+
+    width:90%;
+
+    max-width:700px;
+
+    text-align:center;
+
+}
+
+.avatar{
+
+    width:130px;
+
+    height:130px;
+
+    margin:35px auto 0;
+
+    display:block;
+
+    object-fit:cover;
+
+    border-radius:18px;
+
+    border:3px solid var(--purple);
+
+    box-shadow:
+    0 0 30px rgba(139,92,246,.5);
+
+    opacity:0;
+
+    animation:
+    logoEnter 1.5s ease forwards,
+    logoGlow 2.5s infinite alternate 1.5s;
+
+}
+
+.member-card{
+
+    margin-top:35px;
+
+    opacity:0;
+
+    animation:
+    textEnter 1.5s ease forwards;
+
+    animation-delay:.5s;
+
+    animation-fill-mode:forwards;
+
+}
+
+.member-card h3{
+
+    color:#bfbfc9;
+
+    font-size:18px;
+
+    font-weight:normal;
+
+}
+
+#memberID{
+
+    display:block;
+
+    margin-top:10px;
+
+    color:white;
+
+    font-size:28px;
+
+    font-weight:bold;
+
+    letter-spacing:2px;
+
+    text-shadow:
+    0 0 25px rgba(139,92,246,.8);
+
+}
+
+#enterButton{
+
+    margin-top:45px;
+
+    padding:16px 45px;
+
+    background:var(--purple);
+
+    color:white;
+
+    border:none;
+
+    border-radius:12px;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    opacity:0;
+
+    animation:
+    textEnter 1.5s ease forwards;
+
+    animation-delay:.8s;
+
+    animation-fill-mode:forwards;
+
+    box-shadow:
+    0 0 30px rgba(139,92,246,.4);
+
+}
+
+#enterButton:hover{
+
+    transform:translateY(-5px);
+
+    background:var(--purple-light);
+
+}
