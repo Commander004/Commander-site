@@ -5,9 +5,7 @@ canvas.width = 800;
 canvas.height = 500;
 
 
-// =====================
 // WORLD
-// =====================
 
 const tileSize = 32;
 
@@ -45,32 +43,25 @@ const maze = [
 ];
 
 
-
-// =====================
 // PLAYER
-// =====================
 
 let player = {
-
     x:0,
     y:0,
-
     size:24,
-
     speed:4
-
 };
 
 
 
-for(let y=0; y<maze.length; y++){
+for(let y=0;y<maze.length;y++){
 
-    for(let x=0; x<maze[y].length; x++){
+    for(let x=0;x<maze[y].length;x++){
 
         if(maze[y][x]=="P"){
 
-            player.x = x * tileSize + 4;
-            player.y = y * tileSize + 4;
+            player.x=x*tileSize+4;
+            player.y=y*tileSize+4;
 
         }
 
@@ -80,58 +71,45 @@ for(let y=0; y<maze.length; y++){
 
 
 
-// =====================
 // CAMERA
-// =====================
 
-let camera = {
-
+let camera={
     x:0,
     y:0
-
 };
 
 
 
-// =====================
 // INPUT
-// =====================
 
-let keys = {};
+let keys={};
 
 
-window.addEventListener("keydown",(e)=>{
-
-    keys[e.key.toLowerCase()] = true;
-
+window.addEventListener("keydown",e=>{
+    keys[e.key.toLowerCase()]=true;
 });
 
 
-window.addEventListener("keyup",(e)=>{
-
-    keys[e.key.toLowerCase()] = false;
-
+window.addEventListener("keyup",e=>{
+    keys[e.key.toLowerCase()]=false;
 });
 
 
 
 
-// =====================
 // COLLISION
-// =====================
 
 function isWall(x,y){
 
+    let col=Math.floor(x/tileSize);
+    let row=Math.floor(y/tileSize);
 
-    let col = Math.floor(x/tileSize);
-    let row = Math.floor(y/tileSize);
 
-
-    if(!maze[row] || maze[row][col] === undefined)
+    if(!maze[row] || !maze[row][col])
         return true;
 
 
-    return maze[row][col] === "#";
+    return maze[row][col]=="#";
 
 }
 
@@ -139,13 +117,11 @@ function isWall(x,y){
 
 function canMove(x,y){
 
-    return (
-
+    return(
         !isWall(x,y) &&
         !isWall(x+player.size,y) &&
         !isWall(x,y+player.size) &&
         !isWall(x+player.size,y+player.size)
-
     );
 
 }
@@ -153,62 +129,55 @@ function canMove(x,y){
 
 
 
-// =====================
 // UPDATE
-// =====================
 
 function update(){
 
 
-    let nx = player.x;
-    let ny = player.y;
+    let nx=player.x;
+    let ny=player.y;
 
 
-
-    if(keys["w"] || keys["arrowup"])
-        ny -= player.speed;
-
-
-    if(keys["s"] || keys["arrowdown"])
-        ny += player.speed;
+    if(keys["w"]||keys["arrowup"])
+        ny-=player.speed;
 
 
-    if(keys["a"] || keys["arrowleft"])
-        nx -= player.speed;
+    if(keys["s"]||keys["arrowdown"])
+        ny+=player.speed;
 
 
-    if(keys["d"] || keys["arrowright"])
-        nx += player.speed;
+    if(keys["a"]||keys["arrowleft"])
+        nx-=player.speed;
+
+
+    if(keys["d"]||keys["arrowright"])
+        nx+=player.speed;
 
 
 
     if(canMove(nx,player.y))
-        player.x = nx;
+        player.x=nx;
 
 
     if(canMove(player.x,ny))
-        player.y = ny;
+        player.y=ny;
 
 
 
-    camera.x = player.x - canvas.width/2;
-    camera.y = player.y - canvas.height/2;
-
+    camera.x=player.x-canvas.width/2;
+    camera.y=player.y-canvas.height/2;
 
 }
 
 
 
-// =====================
+
 // DRAW
-// =====================
 
 function draw(){
 
 
-    // background
-
-    ctx.fillStyle="#050507";
+    ctx.fillStyle="#080808";
 
     ctx.fillRect(
         0,
@@ -219,44 +188,40 @@ function draw(){
 
 
 
-    for(let y=0; y<maze.length; y++){
+    for(let y=0;y<maze.length;y++){
+
+        for(let x=0;x<maze[y].length;x++){
 
 
-        for(let x=0; x<maze[y].length; x++){
-
-
-            let screenX = x * tileSize - camera.x;
-            let screenY = y * tileSize - camera.y;
+            let sx=x*tileSize-camera.x;
+            let sy=y*tileSize-camera.y;
 
 
 
             // FLOOR
 
-            if(maze[y][x] !== "#"){
+            if(maze[y][x]!== "#"){
 
-
-                ctx.fillStyle="#101014";
-
+                ctx.fillStyle="#151515";
 
                 ctx.fillRect(
-                    screenX,
-                    screenY,
+                    sx,
+                    sy,
                     tileSize,
                     tileSize
                 );
 
 
-                // floor detail
+                // floor dots
 
-                ctx.fillStyle="rgba(255,255,255,0.04)";
+                ctx.fillStyle="#1c1c1c";
 
                 ctx.fillRect(
-                    screenX+8,
-                    screenY+8,
+                    sx+14,
+                    sy+14,
                     3,
                     3
                 );
-
 
             }
 
@@ -264,29 +229,31 @@ function draw(){
 
             // WALL
 
-            if(maze[y][x] === "#"){
+            if(maze[y][x]=="#"){
 
 
-                ctx.shadowBlur=15;
-                ctx.shadowColor="#8b5cf6";
+                ctx.shadowBlur=0;
 
 
-                ctx.fillStyle="#252030";
+                ctx.fillStyle="#292929";
 
 
                 ctx.fillRect(
-                    screenX,
-                    screenY,
+                    sx,
+                    sy,
                     tileSize,
                     tileSize
                 );
 
 
-                ctx.strokeStyle="#8b5cf6";
+                ctx.strokeStyle="#3d3d3d";
+
+                ctx.lineWidth=1;
+
 
                 ctx.strokeRect(
-                    screenX,
-                    screenY,
+                    sx,
+                    sy,
                     tileSize,
                     tileSize
                 );
@@ -298,22 +265,22 @@ function draw(){
 
             // EXIT
 
-            if(maze[y][x] === "E"){
+            if(maze[y][x]=="E"){
 
 
-                ctx.shadowBlur=25;
-                ctx.shadowColor="#00ffff";
+                ctx.fillStyle="#00eaff";
 
-
-                ctx.fillStyle="#00ffff";
+                ctx.shadowBlur=10;
+                ctx.shadowColor="#00eaff";
 
 
                 ctx.fillRect(
-                    screenX,
-                    screenY,
+                    sx,
+                    sy,
                     tileSize,
                     tileSize
                 );
+
 
             }
 
@@ -330,21 +297,17 @@ function draw(){
 
     // PLAYER
 
-    ctx.shadowBlur=30;
-    ctx.shadowColor="#b794ff";
+    ctx.fillStyle="#a855f7";
 
-
-    ctx.fillStyle="#b794ff";
+    ctx.shadowBlur=12;
+    ctx.shadowColor="#a855f7";
 
 
     ctx.fillRect(
-
         player.x-camera.x,
         player.y-camera.y,
-
         player.size,
         player.size
-
     );
 
 
@@ -356,14 +319,10 @@ function draw(){
 
 
 
-// =====================
-// LOOP
-// =====================
 
 function gameLoop(){
 
     update();
-
     draw();
 
     requestAnimationFrame(gameLoop);
