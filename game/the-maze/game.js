@@ -217,7 +217,9 @@ function update(){
 function draw(){
 
 
-    ctx.fillStyle="#050505";
+    // Background
+
+    ctx.fillStyle="#030304";
 
     ctx.fillRect(
         0,
@@ -226,6 +228,170 @@ function draw(){
         canvas.height
     );
 
+
+
+    // MAP DRAW
+
+    for(let y=0; y<maze.length; y++){
+
+        for(let x=0; x<maze[y].length; x++){
+
+
+            let screenX = x * tileSize - camera.x;
+            let screenY = y * tileSize - camera.y;
+
+
+
+            // FLOOR
+
+            if(maze[y][x] !== "#"){
+
+
+                ctx.fillStyle = "#111116";
+
+
+                ctx.fillRect(
+
+                    screenX,
+                    screenY,
+
+                    tileSize,
+                    tileSize
+
+                );
+
+
+                // small floor detail
+
+                ctx.fillStyle = "rgba(255,255,255,0.03)";
+
+
+                ctx.fillRect(
+
+                    screenX + 5,
+                    screenY + 5,
+
+                    4,
+                    4
+
+                );
+
+            }
+
+
+
+
+            // WALL
+
+            if(maze[y][x] === "#"){
+
+
+                ctx.shadowBlur = 18;
+
+                ctx.shadowColor = "#8b5cf6";
+
+
+                ctx.fillStyle = "#242033";
+
+
+                ctx.fillRect(
+
+                    screenX,
+                    screenY,
+
+                    tileSize,
+                    tileSize
+
+                );
+
+
+
+                // wall edge
+
+                ctx.strokeStyle = "#8b5cf6";
+
+                ctx.lineWidth = 1;
+
+
+                ctx.strokeRect(
+
+                    screenX,
+                    screenY,
+
+                    tileSize,
+                    tileSize
+
+                );
+
+
+            }
+
+
+
+
+            // EXIT
+
+            if(maze[y][x] === "E"){
+
+
+                ctx.shadowBlur = 25;
+
+                ctx.shadowColor = "#00ffff";
+
+
+                ctx.fillStyle = "#00ffff";
+
+
+                ctx.fillRect(
+
+                    screenX,
+                    screenY,
+
+                    tileSize,
+                    tileSize
+
+                );
+
+
+            }
+
+
+
+        }
+
+    }
+
+
+
+    ctx.shadowBlur = 0;
+
+
+
+    // PLAYER
+
+    ctx.shadowBlur = 30;
+
+    ctx.shadowColor = "#b794ff";
+
+
+    ctx.fillStyle = "#b794ff";
+
+
+    ctx.fillRect(
+
+        player.x - camera.x,
+        player.y - camera.y,
+
+        player.size,
+        player.size
+
+    );
+
+
+    ctx.shadowBlur = 0;
+
+
+}
 
 
     // MAP DRAW
