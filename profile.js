@@ -26,11 +26,33 @@ avatars.forEach((avatar) => {
         avatar.style.border = "3px solid white";
         avatar.style.boxShadow = "0 0 35px rgba(139,92,246,1)";
 
-        selectedAvatar = avatar.getAttribute("src");
+        selectedAvatar = avatar.src;
 
     });
 
 });
+
+// =========================
+// Generate Member ID
+// =========================
+
+function generateMemberID() {
+
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+    let id = "CMD-";
+
+    for (let i = 0; i < 6; i++) {
+
+        id += chars.charAt(
+            Math.floor(Math.random() * chars.length)
+        );
+
+    }
+
+    return id;
+
+}
 
 // =========================
 // Create Profile
@@ -54,8 +76,11 @@ createButton.addEventListener("click", () => {
 
     }
 
+    const memberID = generateMemberID();
+
     localStorage.setItem("commander_username", username);
     localStorage.setItem("commander_avatar", selectedAvatar);
+    localStorage.setItem("commander_memberid", memberID);
 
     location.href = "home.html";
 
