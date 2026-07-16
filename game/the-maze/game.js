@@ -6,22 +6,48 @@ canvas.height = 500;
 
 
 // =====================
-// MAP
+// WORLD SETTINGS
 // =====================
 
-const tileSize = 50;
+const tileSize = 32;
+
+
+// =====================
+// BIG MAP
+// =====================
 
 const maze = [
 
-"################",
-"#P       #     #",
-"# ###### # ### #",
-"#        #     #",
-"# ###### ##### #",
-"#            E#",
-"################"
+"############################################################",
+"#P........................................#.................#",
+"#.#########################.#############.#.###############.#",
+"#...............#...........#.............#...............#.#",
+"###############.#.#########.#############.#############.#.#",
+"#...............#.#.........#.............#.#...........#.#.#",
+"#.##############.#.#########.#############.#.#########.#.#.#",
+"#.#..............#.....#...#...............#.......#...#.#.#",
+"#.#.#################.#.#.#######################.#.###.#.#",
+"#.#.................#.#.#...............#.........#.....#.#",
+"#.#################.#.#.###############.#.#############.#.#",
+"#.................#.#.#.................#...............#.#",
+"#################.#.#.###############################.#.#",
+"#.................#.#.................................#.#",
+"#.###############.#.#################################.#.#",
+"#.#...............#...................................#.#.#",
+"#.#.###############################################.#.#.#.#",
+"#.#.................................................#.#...#",
+"#.###############################################.#.#####.#",
+"#.................................................#.......#",
+"#.#######################################################.#",
+"#.........................................................#",
+"#.#######################################################.#",
+"#.........................................................#",
+"#.#######################################################.#",
+"#.......................................................E#",
+"############################################################"
 
 ];
+
 
 
 // =====================
@@ -33,23 +59,23 @@ let player = {
     x:0,
     y:0,
 
-    size:30,
+    size:24,
 
-    speed:5
+    speed:4
 
 };
 
 
-// پیدا کردن محل شروع
+// find player start
 
-for(let row = 0; row < maze.length; row++){
+for(let y=0; y<maze.length; y++){
 
-    for(let col = 0; col < maze[row].length; col++){
+    for(let x=0; x<maze[y].length; x++){
 
-        if(maze[row][col] === "P"){
+        if(maze[y][x]=="P"){
 
-            player.x = col * tileSize + 10;
-            player.y = row * tileSize + 10;
+            player.x = x * tileSize + 4;
+            player.y = y * tileSize + 4;
 
         }
 
@@ -60,10 +86,23 @@ for(let row = 0; row < maze.length; row++){
 
 
 // =====================
-// KEYBOARD
+// CAMERA
 // =====================
 
-let keys = {};
+let camera = {
+
+    x:0,
+    y:0
+
+};
+
+
+
+// =====================
+// KEYS
+// =====================
+
+let keys={};
 
 
 window.addEventListener("keydown",(e)=>{
@@ -89,26 +128,18 @@ window.addEventListener("keyup",(e)=>{
 function isWall(x,y){
 
 
-    let col = Math.floor(x / tileSize);
-    let row = Math.floor(y / tileSize);
+    let col = Math.floor(x/tileSize);
+    let row = Math.floor(y/tileSize);
 
 
-    if(
-        row < 0 ||
-        row >= maze.length ||
-        col < 0 ||
-        col >= maze[row].length
-    ){
-
+    if(!maze[row] || maze[row][col] === undefined)
         return true;
-
-    }
 
 
     return maze[row][col] === "#";
 
-}
 
+}
 
 
 
@@ -118,12 +149,9 @@ function canMove(x,y){
     return (
 
         !isWall(x,y) &&
-
-        !isWall(x + player.size,y) &&
-
-        !isWall(x,y + player.size) &&
-
-        !isWall(x + player.size,y + player.size)
+        !isWall(x+player.size,y) &&
+        !isWall(x,y+player.size) &&
+        !isWall(x+player.size,y+player.size)
 
     );
 
@@ -140,56 +168,45 @@ function canMove(x,y){
 function update(){
 
 
-    let nextX = player.x;
-    let nextY = player.y;
+    let nx = player.x;
+    let ny = player.y;
 
 
 
-    if(keys["w"] || keys["arrowup"]){
-
-        nextY -= player.speed;
-
-    }
+    if(keys["w"] || keys["arrowup"])
+        ny -= player.speed;
 
 
-    if(keys["s"] || keys["arrowdown"]){
-
-        nextY += player.speed;
-
-    }
+    if(keys["s"] || keys["arrowdown"])
+        ny += player.speed;
 
 
-    if(keys["a"] || keys["arrowleft"]){
-
-        nextX -= player.speed;
-
-    }
+    if(keys["a"] || keys["arrowleft"])
+        nx -= player.speed;
 
 
-    if(keys["d"] || keys["arrowright"]){
-
-        nextX += player.speed;
-
-    }
+    if(keys["d"] || keys["arrowright"])
+        nx += player.speed;
 
 
 
-    if(canMove(nextX, player.y)){
-
-        player.x = nextX;
-
-    }
+    if(canMove(nx,player.y))
+        player.x = nx;
 
 
-    if(canMove(player.x, nextY)){
+    if(canMove(player.x,ny))
+        player.y = ny;
 
-        player.y = nextY;
 
-    }
+
+
+    // CAMERA FOLLOW
+
+    camera.x = player.x - canvas.width/2;
+    camera.y = player.y - canvas.height/2;
 
 
 }
-
 
 
 
@@ -199,17 +216,6 @@ function update(){
 
 function draw(){
 
-
-    ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
-
-
-
-    // Background
 
     ctx.fillStyle="#050505";
 
@@ -222,72 +228,63 @@ function draw(){
 
 
 
-    // MAP
+    // MAP DRAW
 
-    for(let row = 0; row < maze.length; row++){
+    for(let y=0; y<maze.length; y++){
 
-
-        for(let col = 0; col < maze[row].length; col++){
-
+        for(let x=0; x<maze[y].length; x++){
 
 
-            if(maze[row][col] === "#"){
+
+            let screenX = x*tileSize - camera.x;
+            let screenY = y*tileSize - camera.y;
+
+
+
+            if(maze[y][x]=="#"){
 
 
                 ctx.fillStyle="#8b5cf6";
 
-
-                ctx.shadowBlur=20;
-
+                ctx.shadowBlur=15;
                 ctx.shadowColor="#8b5cf6";
 
 
                 ctx.fillRect(
 
-                    col * tileSize,
-
-                    row * tileSize,
-
+                    screenX,
+                    screenY,
                     tileSize,
-
                     tileSize
 
                 );
-
 
             }
 
 
 
-            if(maze[row][col] === "E"){
+            if(maze[y][x]=="E"){
 
 
                 ctx.fillStyle="#00ffff";
 
-
-                ctx.shadowBlur=25;
-
+                ctx.shadowBlur=20;
                 ctx.shadowColor="#00ffff";
 
 
                 ctx.fillRect(
 
-                    col * tileSize,
-
-                    row * tileSize,
-
+                    screenX,
+                    screenY,
                     tileSize,
-
                     tileSize
 
                 );
-
 
             }
 
 
         }
-
 
     }
 
@@ -301,20 +298,16 @@ function draw(){
 
     ctx.fillStyle="#b794ff";
 
-
     ctx.shadowBlur=25;
-
     ctx.shadowColor="#b794ff";
 
 
     ctx.fillRect(
 
-        player.x,
-
-        player.y,
+        player.x-camera.x,
+        player.y-camera.y,
 
         player.size,
-
         player.size
 
     );
@@ -329,22 +322,18 @@ function draw(){
 
 
 // =====================
-// GAME LOOP
+// LOOP
 // =====================
 
 function gameLoop(){
-
 
     update();
 
     draw();
 
-
     requestAnimationFrame(gameLoop);
 
-
 }
-
 
 
 gameLoop();
