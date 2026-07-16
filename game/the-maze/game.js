@@ -6,7 +6,7 @@ canvas.height = 500;
 
 
 // =====================
-// Maze Map
+// MAP
 // =====================
 
 const tileSize = 50;
@@ -23,29 +23,33 @@ const maze = [
 
 ];
 
-alert("NEW GAME JS LOADED");
+
 // =====================
-// Player
+// PLAYER
 // =====================
 
 let player = {
+
     x:0,
     y:0,
+
     size:30,
+
     speed:5
+
 };
 
-alert("NEW GAME JS LOADED");
-// Find Player Position
 
-for(let y = 0; y < maze.length; y++){
+// پیدا کردن محل شروع
 
-    for(let x = 0; x < maze[y].length; x++){
+for(let row = 0; row < maze.length; row++){
 
-        if(maze[y][x] === "P"){
+    for(let col = 0; col < maze[row].length; col++){
 
-            player.x = x * tileSize + 10;
-            player.y = y * tileSize + 10;
+        if(maze[row][col] === "P"){
+
+            player.x = col * tileSize + 10;
+            player.y = row * tileSize + 10;
 
         }
 
@@ -54,36 +58,51 @@ for(let y = 0; y < maze.length; y++){
 }
 
 
-alert("NEW GAME JS LOADED");
+
 // =====================
-// Keyboard
+// KEYBOARD
 // =====================
 
 let keys = {};
 
+
 window.addEventListener("keydown",(e)=>{
-    keys[e.key]=true;
+
+    keys[e.key.toLowerCase()] = true;
+
 });
 
 
 window.addEventListener("keyup",(e)=>{
-    keys[e.key]=false;
+
+    keys[e.key.toLowerCase()] = false;
+
 });
 
 
-alert("NEW GAME JS LOADED");
+
 
 // =====================
-// Collision
+// COLLISION
 // =====================
 
 function isWall(x,y){
+
 
     let col = Math.floor(x / tileSize);
     let row = Math.floor(y / tileSize);
 
 
-    if(!maze[row]) return true;
+    if(
+        row < 0 ||
+        row >= maze.length ||
+        col < 0 ||
+        col >= maze[row].length
+    ){
+
+        return true;
+
+    }
 
 
     return maze[row][col] === "#";
@@ -92,9 +111,30 @@ function isWall(x,y){
 
 
 
-alert("NEW GAME JS LOADED");
+
+function canMove(x,y){
+
+
+    return (
+
+        !isWall(x,y) &&
+
+        !isWall(x + player.size,y) &&
+
+        !isWall(x,y + player.size) &&
+
+        !isWall(x + player.size,y + player.size)
+
+    );
+
+
+}
+
+
+
+
 // =====================
-// Update
+// UPDATE
 // =====================
 
 function update(){
@@ -105,54 +145,74 @@ function update(){
 
 
 
-    if(keys["ArrowUp"] || keys["w"])
+    if(keys["w"] || keys["arrowup"]){
+
         nextY -= player.speed;
 
+    }
 
-    if(keys["ArrowDown"] || keys["s"])
+
+    if(keys["s"] || keys["arrowdown"]){
+
         nextY += player.speed;
 
+    }
 
-    if(keys["ArrowLeft"] || keys["a"])
+
+    if(keys["a"] || keys["arrowleft"]){
+
         nextX -= player.speed;
 
+    }
 
-    if(keys["ArrowRight"] || keys["d"])
+
+    if(keys["d"] || keys["arrowright"]){
+
         nextX += player.speed;
 
+    }
 
-alert("NEW GAME JS LOADED");
-    // Collision check
 
-    if(
-        !isWall(nextX, player.y) &&
-        !isWall(nextX + player.size, player.y)
-    ){
+
+    if(canMove(nextX, player.y)){
+
         player.x = nextX;
+
     }
 
 
-    if(
-        !isWall(player.x, nextY) &&
-        !isWall(player.x, nextY + player.size)
-    ){
+    if(canMove(player.x, nextY)){
+
         player.y = nextY;
-    }
 
+    }
 
 
 }
 
 
-alert("NEW GAME JS LOADED");
+
+
 // =====================
-// Draw
+// DRAW
 // =====================
 
 function draw(){
 
 
-    ctx.fillStyle="#050507";
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+
+    // Background
+
+    ctx.fillStyle="#050505";
+
     ctx.fillRect(
         0,
         0,
@@ -161,75 +221,102 @@ function draw(){
     );
 
 
-alert("NEW GAME JS LOADED");
-    // Draw Maze
 
-    for(let y=0; y<maze.length; y++){
+    // MAP
 
-        for(let x=0; x<maze[y].length; x++){
+    for(let row = 0; row < maze.length; row++){
 
 
-            if(maze[y][x]==="#"){
+        for(let col = 0; col < maze[row].length; col++){
+
+
+
+            if(maze[row][col] === "#"){
 
 
                 ctx.fillStyle="#8b5cf6";
 
-                ctx.shadowBlur=15;
+
+                ctx.shadowBlur=20;
+
                 ctx.shadowColor="#8b5cf6";
 
 
                 ctx.fillRect(
-                    x*tileSize,
-                    y*tileSize,
+
+                    col * tileSize,
+
+                    row * tileSize,
+
                     tileSize,
+
                     tileSize
+
                 );
 
 
             }
 
 
-            if(maze[y][x]==="E"){
+
+            if(maze[row][col] === "E"){
 
 
                 ctx.fillStyle="#00ffff";
 
-                ctx.shadowBlur=20;
+
+                ctx.shadowBlur=25;
+
                 ctx.shadowColor="#00ffff";
 
 
                 ctx.fillRect(
-                    x*tileSize,
-                    y*tileSize,
+
+                    col * tileSize,
+
+                    row * tileSize,
+
                     tileSize,
+
                     tileSize
+
                 );
 
 
             }
 
+
         }
 
+
     }
+
 
 
     ctx.shadowBlur=0;
 
 
-alert("NEW GAME JS LOADED");
-    // Player
+
+    // PLAYER
 
     ctx.fillStyle="#b794ff";
 
-    ctx.shadowBlur=20;
+
+    ctx.shadowBlur=25;
+
     ctx.shadowColor="#b794ff";
 
 
     ctx.fillRect(
+
         player.x,
+
         player.y,
+
         player.size,
+
         player.size
+
     );
 
 
@@ -240,20 +327,24 @@ alert("NEW GAME JS LOADED");
 
 
 
-alert("NEW GAME JS LOADED");
+
 // =====================
-// Loop
+// GAME LOOP
 // =====================
 
 function gameLoop(){
+
 
     update();
 
     draw();
 
+
     requestAnimationFrame(gameLoop);
 
+
 }
-alert("NEW GAME JS LOADED");
+
+
 
 gameLoop();
