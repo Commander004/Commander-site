@@ -23,7 +23,7 @@ const maze = [
 
 ];
 
-
+alert("NEW GAME JS LOADED");
 // =====================
 // Player
 // =====================
@@ -35,7 +35,7 @@ let player = {
     speed:5
 };
 
-
+alert("NEW GAME JS LOADED");
 // Find Player Position
 
 for(let y = 0; y < maze.length; y++){
@@ -54,7 +54,7 @@ for(let y = 0; y < maze.length; y++){
 }
 
 
-
+alert("NEW GAME JS LOADED");
 // =====================
 // Keyboard
 // =====================
@@ -71,7 +71,7 @@ window.addEventListener("keyup",(e)=>{
 });
 
 
-
+alert("NEW GAME JS LOADED");
 
 // =====================
 // Collision
@@ -92,7 +92,7 @@ function isWall(x,y){
 
 
 
-
+alert("NEW GAME JS LOADED");
 // =====================
 // Update
 // =====================
@@ -121,7 +121,7 @@ function update(){
         nextX += player.speed;
 
 
-
+alert("NEW GAME JS LOADED");
     // Collision check
 
     if(
@@ -144,7 +144,7 @@ function update(){
 }
 
 
-
+alert("NEW GAME JS LOADED");
 // =====================
 // Draw
 // =====================
@@ -161,7 +161,7 @@ function draw(){
     );
 
 
-
+alert("NEW GAME JS LOADED");
     // Draw Maze
 
     for(let y=0; y<maze.length; y++){
@@ -216,7 +216,7 @@ function draw(){
     ctx.shadowBlur=0;
 
 
-
+alert("NEW GAME JS LOADED");
     // Player
 
     ctx.fillStyle="#b794ff";
@@ -240,7 +240,7 @@ function draw(){
 
 
 
-
+alert("NEW GAME JS LOADED");
 // =====================
 // Loop
 // =====================
@@ -254,6 +254,6 @@ function gameLoop(){
     requestAnimationFrame(gameLoop);
 
 }
-
+alert("NEW GAME JS LOADED");
 
 gameLoop();
