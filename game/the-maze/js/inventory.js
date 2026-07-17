@@ -2,20 +2,23 @@
 // INVENTORY
 // =====================
 
-
 // 10 Slots
 
 const inventory = new Array(10).fill(null);
 
 
-// شروع بازی
+// آیتم‌های اولیه
 
 inventory[0] = {
+
     type: "flashlight"
+
 };
 
 inventory[1] = {
+
     type: "battery"
+
 };
 
 
@@ -71,7 +74,7 @@ inventoryImages.map.src = "assets/items/map.png";
 // TOGGLE
 // =====================
 
-function toggleBackpack(){
+function toggleBackpack() {
 
     backpackOpen = !backpackOpen;
 
@@ -82,9 +85,9 @@ function toggleBackpack(){
 // SLOT
 // =====================
 
-function selectSlot(index){
+function selectSlot(index) {
 
-    if(index >= 0 && index < inventory.length){
+    if (index >= 0 && index < inventory.length) {
 
         selectedSlot = index;
 
@@ -97,14 +100,14 @@ function selectSlot(index){
 // USE
 // =====================
 
-function useSelectedItem(){
+function useSelectedItem() {
 
     const item = inventory[selectedSlot];
 
-    if(!item) return;
+    if (!item) return;
 
 
-    switch(item.type){
+    switch (item.type) {
 
         case "flashlight":
 
@@ -124,9 +127,9 @@ function useSelectedItem(){
 
         case "medkit":
 
-            player.health += 25;
+            player.health += 35;
 
-            if(player.health > 100)
+            if (player.health > 100)
                 player.health = 100;
 
             inventory[selectedSlot] = null;
@@ -136,12 +139,22 @@ function useSelectedItem(){
 
         case "food":
 
+            player.health += 5;
+
+            if (player.health > 100)
+                player.health = 100;
+
             inventory[selectedSlot] = null;
 
             break;
 
 
         case "water":
+
+            player.health += 3;
+
+            if (player.health > 100)
+                player.health = 100;
 
             inventory[selectedSlot] = null;
 
@@ -164,14 +177,14 @@ function useSelectedItem(){
 
         case "map":
 
-            console.log("Map");
+            console.log("Open Map");
 
             break;
 
 
         case "key":
 
-            console.log("Key");
+            console.log("Use Key");
 
             break;
 
@@ -184,110 +197,114 @@ function useSelectedItem(){
 // UPDATE
 // =====================
 
-function updateInventory(){
+function updateInventory() {
+
+    // بعداً:
+    // Pick Up
+    // Drop
+    // Stack
+    // Craft
 
 }
-
 
 // =====================
 // DRAW
 // =====================
 
-function drawInventory(){
+function drawInventory() {
 
-    if(!backpackOpen)
-        return;
+    if (!backpackOpen) return;
 
 
     const width = 420;
     const height = 220;
 
-    const x = canvas.width/2-width/2;
-    const y = canvas.height-height-20;
+    const x = canvas.width / 2 - width / 2;
+    const y = canvas.height - height - 20;
 
 
-    ctx.fillStyle="rgba(20,20,30,.95)";
-    ctx.strokeStyle="#8b5cf6";
-    ctx.lineWidth=2;
+    // Panel
 
-    ctx.fillRect(x,y,width,height);
+    ctx.fillStyle = "rgba(20,20,30,.95)";
+    ctx.strokeStyle = "#8b5cf6";
+    ctx.lineWidth = 2;
 
-    ctx.strokeRect(x,y,width,height);
-
-
-    ctx.fillStyle="white";
-    ctx.font="20px Arial";
-    ctx.fillText("Backpack",x+20,y+30);
+    ctx.fillRect(x, y, width, height);
+    ctx.strokeRect(x, y, width, height);
 
 
-    const slot=48;
-    const gap=12;
+    // Title
+
+    ctx.fillStyle = "white";
+    ctx.font = "20px Arial";
+    ctx.fillText("Backpack", x + 20, y + 30);
 
 
-    for(let i=0;i<10;i++){
+    // Slots
 
-        const col=i%5;
-        const row=Math.floor(i/5);
+    const slot = 48;
+    const gap = 12;
 
-        const sx=x+25+col*(slot+gap);
-        const sy=y+55+row*(slot+gap);
+    for (let i = 0; i < 10; i++) {
+
+        const col = i % 5;
+        const row = Math.floor(i / 5);
+
+        const sx = x + 25 + col * (slot + gap);
+        const sy = y + 55 + row * (slot + gap);
 
 
-        ctx.fillStyle=
+        ctx.fillStyle =
 
-        i===selectedSlot
+            i === selectedSlot
 
-        ? "#8b5cf6"
+            ? "#8b5cf6"
 
-        : "#2a2a35";
+            : "#2a2a35";
 
 
         ctx.fillRect(
 
             sx,
-
             sy,
 
             slot,
-
             slot
 
         );
 
 
-        ctx.strokeStyle="#b794ff";
+        ctx.strokeStyle = "#b794ff";
 
         ctx.strokeRect(
 
             sx,
-
             sy,
 
             slot,
-
             slot
 
         );
 
 
-        const item=inventory[i];
+        // Draw Item PNG
 
-        if(item){
+        const item = inventory[i];
 
-            const img=inventoryImages[item.type];
+        if (item) {
 
-            if(img.complete){
+            const img = inventoryImages[item.type];
+
+            if (img && img.complete) {
 
                 ctx.drawImage(
 
                     img,
 
-                    sx+6,
-
-                    sy+6,
+                    sx + 6,
+                    sy + 6,
 
                     36,
-
                     36
 
                 );
@@ -299,59 +316,82 @@ function drawInventory(){
     }
 
 
+    // =====================
     // Selected Item Name
+    // =====================
 
-    const current=inventory[selectedSlot];
+    const current = inventory[selectedSlot];
 
-    if(current){
+    if (current) {
 
-        ctx.fillStyle="white";
+        ctx.fillStyle = "white";
 
-        ctx.font="18px Arial";
+        ctx.font = "18px Arial";
 
         ctx.fillText(
 
             current.type.toUpperCase(),
 
-            x+20,
+            x + 20,
 
-            y+190
+            y + 195
 
         );
 
     }
 
 
-    // Use Button
+    // =====================
+    // USE BUTTON
+    // =====================
 
-    const bx=x+290;
-    const by=y+170;
+    const buttonX = x + 290;
+    const buttonY = y + 170;
+    const buttonWidth = 90;
+    const buttonHeight = 35;
 
-    ctx.fillStyle="#8b5cf6";
+
+    ctx.fillStyle = "#8b5cf6";
 
     ctx.fillRect(
 
-        bx,
+        buttonX,
+        buttonY,
 
-        by,
-
-        90,
-
-        35
+        buttonWidth,
+        buttonHeight
 
     );
 
-    ctx.fillStyle="white";
 
-    ctx.font="18px Arial";
+    ctx.fillStyle = "white";
+
+    ctx.font = "18px Arial";
 
     ctx.fillText(
 
         "USE",
 
-        bx+23,
+        buttonX + 23,
 
-        by+23
+        buttonY + 23
+
+    );
+
+
+    // Hint
+
+    ctx.fillStyle = "#bbbbbb";
+
+    ctx.font = "14px Arial";
+
+    ctx.fillText(
+
+        "Press F for Flashlight",
+
+        x + 170,
+
+        y + 195
 
     );
 
