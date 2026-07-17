@@ -10,6 +10,7 @@
     <title>The Maze</title>
 
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile.css">
 
 </head>
 
@@ -19,20 +20,57 @@
 
     <canvas id="gameCanvas"></canvas>
 
-    <!-- Core -->
+
+    <!-- Mobile Controls -->
+
+    <div class="mobile-controls">
+
+        <button id="up">▲</button>
+
+        <div class="middle-row">
+
+            <button id="left">◀</button>
+
+            <button id="down">▼</button>
+
+            <button id="right">▶</button>
+
+        </div>
+
+        <div class="bottom-row">
+
+            <button id="backpack">🎒</button>
+
+            <button id="use">USE</button>
+
+            <button id="shoot">🔫</button>
+
+        </div>
+
+    </div>
+
+
+    <!-- JS -->
+
     <script src="js/core.js"></script>
 
-    <!-- Systems -->
     <script src="js/input.js"></script>
+
     <script src="js/player.js"></script>
+
     <script src="js/camera.js"></script>
+
     <script src="js/items.js"></script>
+
     <script src="js/monster.js"></script>
+
     <script src="js/inventory.js"></script>
+
     <script src="js/ui.js"></script>
 
-    <!-- Main -->
     <script src="js/game.js"></script>
+
+    <script src="mobile.js"></script>
 
 </body>
 
