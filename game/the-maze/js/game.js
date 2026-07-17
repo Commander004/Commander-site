@@ -4,9 +4,14 @@
 
 function update() {
 
+    if (gameOver)
+        return;
+
     updatePlayer();
 
     updateMonster();
+
+    updateCombat();
 
     updateItems();
 
@@ -30,15 +35,11 @@ function drawMap() {
     ctx.fillStyle = "#080808";
 
     ctx.fillRect(
-
         0,
         0,
-
         canvas.width,
         canvas.height
-
     );
-
 
     for (let y = 0; y < maze.length; y++) {
 
@@ -47,40 +48,31 @@ function drawMap() {
             const sx = x * tileSize - camera.x;
             const sy = y * tileSize - camera.y;
 
-
             if (maze[y][x] != "#") {
 
                 ctx.fillStyle = "#151515";
 
                 ctx.fillRect(
-
                     sx,
                     sy,
-
                     tileSize,
                     tileSize
-
                 );
 
             }
-
 
             if (maze[y][x] == "#") {
 
-                ctx.fillStyle = "#292929";
+                ctx.fillStyle = "#2d2d2d";
 
                 ctx.fillRect(
-
                     sx,
                     sy,
-
                     tileSize,
                     tileSize
-
                 );
 
             }
-
 
             if (maze[y][x] == "E") {
 
@@ -90,13 +82,10 @@ function drawMap() {
                 ctx.shadowColor = "#00eaff";
 
                 ctx.fillRect(
-
                     sx,
                     sy,
-
                     tileSize,
                     tileSize
-
                 );
 
                 ctx.shadowBlur = 0;
@@ -127,6 +116,8 @@ function draw() {
     drawUI();
 
     drawFlashlight();
+
+    drawGameOver();
 
 }
 
