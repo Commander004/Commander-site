@@ -26,20 +26,58 @@ monsterImage.src = "assets/enemies/monster.png";
 
 
 // =====================
+// FEAR SYSTEM
+// =====================
+
+let monsterFear = false;
+
+let monsterFearTimer = 0;
+
+
+// =====================
 // UPDATE
 // =====================
 
 function updateMonster() {
+
+    if (monsterFear) {
+
+        monsterFearTimer--;
+
+        if (monsterFearTimer <= 0) {
+
+            monsterFear = false;
+
+        }
+
+    }
+
 
     const dx = player.x - monster.x;
     const dy = player.y - monster.y;
 
     const distance = Math.sqrt(dx * dx + dy * dy);
 
+
     if (distance < 400 && distance > 0) {
 
-        monster.x += (dx / distance) * monster.speed;
-        monster.y += (dy / distance) * monster.speed;
+        if (monsterFear) {
+
+            // Run Away
+
+            monster.x -= (dx / distance) * monster.speed * 2;
+
+            monster.y -= (dy / distance) * monster.speed * 2;
+
+        } else {
+
+            // Chase Player
+
+            monster.x += (dx / distance) * monster.speed;
+
+            monster.y += (dy / distance) * monster.speed;
+
+        }
 
     }
 
@@ -55,7 +93,6 @@ function drawMonster() {
     const drawX = monster.x - camera.x;
     const drawY = monster.y - camera.y;
 
-    // Glow
     ctx.save();
 
     ctx.shadowBlur = 20;
@@ -94,11 +131,3 @@ function drawMonster() {
     ctx.restore();
 
 }
-
-// =====================
-// FEAR SYSTEM
-// =====================
-
-let monsterFear = false;
-
-let monsterFearTimer = 0;
