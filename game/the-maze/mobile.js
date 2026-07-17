@@ -103,3 +103,16 @@ rightBtn.addEventListener("touchend",()=>{
     releaseKey("arrowright");
 
 });
+
+// =====================
+// BACKPACK BUTTON
+// =====================
+
+const backpackBtn = document.getElementById("backpack");
+
+
+backpackBtn.addEventListener("touchstart", () => {
+
+    toggleBackpack();
+
+});
