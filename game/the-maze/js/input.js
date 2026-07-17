@@ -4,20 +4,41 @@
 
 const keys = {};
 
+let spacePressed = false;
+
 window.addEventListener("keydown", (e) => {
 
     keys[e.key.toLowerCase()] = true;
 
-    // جلوگیری از اسکرول صفحه با Space
-    if (e.code === "Space") {
+    // =====================
+    // BACKPACK
+    // =====================
+
+    if (e.code === "Space" && !spacePressed) {
 
         e.preventDefault();
 
         toggleBackpack();
 
+        spacePressed = true;
+
     }
 
-    // Inventory Select
+
+    // =====================
+    // FLASHLIGHT
+    // =====================
+
+    if (e.key.toLowerCase() === "f") {
+
+        toggleFlashlight();
+
+    }
+
+
+    // =====================
+    // INVENTORY SELECT
+    // =====================
 
     if (e.key >= "1" && e.key <= "9") {
 
@@ -37,5 +58,11 @@ window.addEventListener("keydown", (e) => {
 window.addEventListener("keyup", (e) => {
 
     keys[e.key.toLowerCase()] = false;
+
+    if (e.code === "Space") {
+
+        spacePressed = false;
+
+    }
 
 });
