@@ -7,7 +7,7 @@ const player = {
     x: 0,
     y: 0,
 
-    size: 24,
+    size: 32,
 
     speed: 4,
 
@@ -16,7 +16,37 @@ const player = {
 };
 
 
-// پیدا کردن محل شروع بازیکن
+// =====================
+// PLAYER IMAGES
+// =====================
+
+const playerImages = {
+
+    idle: new Image(),
+
+    up: new Image(),
+
+    down: new Image(),
+
+    left: new Image(),
+
+    right: new Image()
+
+};
+
+playerImages.idle.src = "assets/player/player.png";
+playerImages.up.src = "assets/player/player_up.png";
+playerImages.down.src = "assets/player/player_down.png";
+playerImages.left.src = "assets/player/player_left.png";
+playerImages.right.src = "assets/player/player_right.png";
+
+
+let currentPlayerImage = playerImages.idle;
+
+
+// =====================
+// FIND PLAYER START
+// =====================
 
 for (let y = 0; y < maze.length; y++) {
 
@@ -35,7 +65,7 @@ for (let y = 0; y < maze.length; y++) {
 
 
 // =====================
-// Collision
+// COLLISION
 // =====================
 
 function isWall(x, y) {
@@ -69,7 +99,7 @@ function canMove(x, y) {
 
 
 // =====================
-// Update
+// UPDATE PLAYER
 // =====================
 
 function updatePlayer() {
@@ -77,17 +107,51 @@ function updatePlayer() {
     let nx = player.x;
     let ny = player.y;
 
-    if (keys["w"] || keys["arrowup"])
+    let moving = false;
+
+
+    if (keys["w"] || keys["arrowup"]) {
+
         ny -= player.speed;
 
-    if (keys["s"] || keys["arrowdown"])
+        currentPlayerImage = playerImages.up;
+
+        moving = true;
+
+    }
+
+
+    if (keys["s"] || keys["arrowdown"]) {
+
         ny += player.speed;
 
-    if (keys["a"] || keys["arrowleft"])
+        currentPlayerImage = playerImages.down;
+
+        moving = true;
+
+    }
+
+
+    if (keys["a"] || keys["arrowleft"]) {
+
         nx -= player.speed;
 
-    if (keys["d"] || keys["arrowright"])
+        currentPlayerImage = playerImages.left;
+
+        moving = true;
+
+    }
+
+
+    if (keys["d"] || keys["arrowright"]) {
+
         nx += player.speed;
+
+        currentPlayerImage = playerImages.right;
+
+        moving = true;
+
+    }
 
 
     if (canMove(nx, player.y))
@@ -96,30 +160,54 @@ function updatePlayer() {
     if (canMove(player.x, ny))
         player.y = ny;
 
+
+    if (!moving) {
+
+        currentPlayerImage = playerImages.idle;
+
+    }
+
 }
 
 
 // =====================
-// Draw
+// DRAW PLAYER
 // =====================
 
 function drawPlayer() {
 
-    ctx.fillStyle = "#a855f7";
+    if (currentPlayerImage.complete) {
 
-    ctx.shadowBlur = 12;
-    ctx.shadowColor = "#a855f7";
+        ctx.drawImage(
 
-    ctx.fillRect(
+            currentPlayerImage,
 
-        player.x - camera.x,
-        player.y - camera.y,
+            player.x - camera.x,
 
-        player.size,
-        player.size
+            player.y - camera.y,
 
-    );
+            player.size,
 
-    ctx.shadowBlur = 0;
+            player.size
+
+        );
+
+    } else {
+
+        ctx.fillStyle = "#a855f7";
+
+        ctx.fillRect(
+
+            player.x - camera.x,
+
+            player.y - camera.y,
+
+            player.size,
+
+            player.size
+
+        );
+
+    }
 
 }
