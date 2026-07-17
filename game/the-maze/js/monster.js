@@ -7,13 +7,14 @@ const monster = {
     x: 900,
     y: 300,
 
-    size: 26,
+    size: 32,
 
     speed: 1.2,
 
     health: 100
 
 };
+
 
 // =====================
 // MONSTER IMAGE
@@ -22,6 +23,7 @@ const monster = {
 const monsterImage = new Image();
 
 monsterImage.src = "assets/enemies/monster.png";
+
 
 // =====================
 // UPDATE
@@ -50,21 +52,45 @@ function updateMonster() {
 
 function drawMonster() {
 
-    ctx.fillStyle = "#ff0055";
+    const drawX = monster.x - camera.x;
+    const drawY = monster.y - camera.y;
 
-    ctx.shadowBlur = 15;
-    ctx.shadowColor = "#ff0055";
+    // Glow
+    ctx.save();
 
-    ctx.fillRect(
+    ctx.shadowBlur = 20;
+    ctx.shadowColor = "#ff0033";
 
-        monster.x - camera.x,
-        monster.y - camera.y,
+    if (monsterImage.complete) {
 
-        monster.size,
-        monster.size
+        ctx.drawImage(
 
-    );
+            monsterImage,
 
-    ctx.shadowBlur = 0;
+            drawX,
+            drawY,
+
+            monster.size,
+            monster.size
+
+        );
+
+    } else {
+
+        ctx.fillStyle = "#ff0033";
+
+        ctx.fillRect(
+
+            drawX,
+            drawY,
+
+            monster.size,
+            monster.size
+
+        );
+
+    }
+
+    ctx.restore();
 
 }
