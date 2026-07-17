@@ -2,81 +2,31 @@
 // UI
 // =====================
 
-
-function updateUI(){
-
-
-}
+function updateUI(){}
 
 
 
 // =====================
-// DRAW UI
+// HEALTH BAR
 // =====================
 
-
-function drawUI(){
-
-
-    drawInventory();
-
-    drawBattery();
-
-
-}
-
-
-
-// =====================
-// BATTERY BAR
-// =====================
-
-
-function drawBattery(){
-
+function drawHealthBar(){
 
     const x = 20;
-
     const y = 20;
 
-
     const width = 220;
-
     const height = 22;
 
-
-
-    // background
+    // Background
 
     ctx.fillStyle = "#222";
 
-    ctx.fillRect(
+    ctx.fillRect(x,y,width,height);
 
-        x,
+    // Health
 
-        y,
-
-        width,
-
-        height
-
-    );
-
-
-
-
-    // battery amount
-
-
-    ctx.fillStyle = 
-
-        battery > 30
-
-        ? "#00ff66"
-
-        : "#ff3333";
-
-
+    ctx.fillStyle = "#ff4040";
 
     ctx.fillRect(
 
@@ -84,19 +34,17 @@ function drawBattery(){
 
         y,
 
-        width * (battery / 100),
+        width * (player.health / 100),
 
         height
 
     );
 
+    // Border
 
+    ctx.strokeStyle = "#ffffff";
 
-
-    // border
-
-
-    ctx.strokeStyle="#ffffff";
+    ctx.lineWidth = 2;
 
     ctx.strokeRect(
 
@@ -110,26 +58,34 @@ function drawBattery(){
 
     );
 
+    // Text
 
+    ctx.fillStyle = "white";
 
-
-    // text
-
-
-    ctx.fillStyle="white";
-
-    ctx.font="16px Arial";
-
+    ctx.font = "16px Arial";
 
     ctx.fillText(
 
-        "🔋 " + Math.floor(battery) + "%",
+        "Health " + player.health + "%",
 
-        x + 8,
+        x + 60,
 
         y + 17
 
     );
 
+}
+
+
+
+// =====================
+// DRAW UI
+// =====================
+
+function drawUI(){
+
+    drawInventory();
+
+    drawHealthBar();
 
 }
