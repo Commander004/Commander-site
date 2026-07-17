@@ -94,3 +94,11 @@ function drawMonster() {
     ctx.restore();
 
 }
+
+// =====================
+// FEAR SYSTEM
+// =====================
+
+let monsterFear = false;
+
+let monsterFearTimer = 0;
