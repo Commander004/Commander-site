@@ -4,7 +4,28 @@
 
 // 10 Slot Inventory
 
-const inventory = new Array(10).fill(null);
+const inventory = [
+
+    {
+        type: "flashlight",
+        amount: 1
+    },
+
+    {
+        type: "map",
+        amount: 1
+    },
+
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+
+];
 
 
 // Selected Slot
