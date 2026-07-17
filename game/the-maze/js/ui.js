@@ -12,8 +12,8 @@ function updateUI(){}
 
 function drawHealthBar(){
 
-    const x = 20;
-    const y = 20;
+    const x = 55;
+    const y = 55;
 
     const width = 220;
     const height = 22;
