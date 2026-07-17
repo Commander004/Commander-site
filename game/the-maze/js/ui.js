@@ -84,6 +84,8 @@ function drawHealthBar(){
 
 function drawUI(){
 
+    drawBatteryBar();
+    
     drawInventory();
 
     drawHealthBar();
