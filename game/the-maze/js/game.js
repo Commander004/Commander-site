@@ -110,6 +110,8 @@ function draw() {
 
     drawUI();
 
+    drawFlashlight();
+
 }
 
 
