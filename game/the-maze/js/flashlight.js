@@ -15,7 +15,7 @@ const batteryDrain = 0.02;
 
 function toggleFlashlight() {
 
-    alert("Flashlight");
+
 
     // اگر باتری خالی است روشن نشود
     if (!flashlightOn && battery <= 0)
