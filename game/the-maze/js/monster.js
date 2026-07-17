@@ -15,6 +15,13 @@ const monster = {
 
 };
 
+// =====================
+// MONSTER IMAGE
+// =====================
+
+const monsterImage = new Image();
+
+monsterImage.src = "assets/enemies/monster.png";
 
 // =====================
 // UPDATE
