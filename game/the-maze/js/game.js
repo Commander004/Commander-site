@@ -16,6 +16,8 @@ function update() {
 
     updateUI();
 
+    updateFlashlight();
+
 }
 
 
