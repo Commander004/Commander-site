@@ -116,3 +116,12 @@ backpackBtn.addEventListener("touchstart", () => {
     toggleBackpack();
 
 });
+
+const useBtn = document.getElementById("use");
+
+
+useBtn.addEventListener("touchstart",()=>{
+
+    useSelectedItem();
+
+});
