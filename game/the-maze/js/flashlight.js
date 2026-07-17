@@ -15,7 +15,7 @@ const batteryDrain = 0.02;
 
 function toggleFlashlight() {
 
-    console.log("F Pressed");
+    alert("Flashlight");
 
     // اگر باتری خالی است روشن نشود
     if (!flashlightOn && battery <= 0)
@@ -23,11 +23,9 @@ function toggleFlashlight() {
 
     flashlightOn = !flashlightOn;
 
-    // ترساندن هیولا
     if (flashlightOn) {
 
         monsterFear = true;
-
         monsterFearTimer = 120;
 
     }
