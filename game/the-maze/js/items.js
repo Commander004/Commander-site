@@ -2,105 +2,140 @@
 // ITEMS
 // =====================
 
+
 const items = [
 
     {
-
-        type: "battery",
-
-        x: 12,
-
-        y: 5
-
+        type:"battery",
+        x:12,
+        y:5
     },
 
+
     {
-
-        type: "medkit",
-
-        x: 30,
-
-        y: 15
-
+        type:"medkit",
+        x:30,
+        y:15
     },
 
+
     {
-
-        type: "key",
-
-        x: 45,
-
-        y: 22
-
+        type:"key",
+        x:45,
+        y:22
     }
 
 ];
 
 
+
+
 // =====================
-// UPDATE ITEMS
+// ITEM IMAGES
 // =====================
 
-function updateItems() {
 
-    // فعلاً خالی
-    // بعداً:
-    // برداشتن آیتم
-    // اضافه شدن به Inventory
-    // حذف از زمین
+const itemWorldImages = {
+
+    battery: new Image(),
+
+    medkit: new Image(),
+
+    key: new Image(),
+
+    flashlight: new Image(),
+
+    map: new Image()
+
+};
+
+
+
+itemWorldImages.battery.src =
+"assets/items/battery.png";
+
+
+itemWorldImages.medkit.src =
+"assets/items/medkit.png";
+
+
+itemWorldImages.key.src =
+"assets/items/key.png";
+
+
+itemWorldImages.flashlight.src =
+"assets/items/flashlight.png";
+
+
+itemWorldImages.map.src =
+"assets/items/map.png";
+
+
+
+
+
+// =====================
+// UPDATE
+// =====================
+
+
+function updateItems(){
+
 
 }
+
+
+
 
 
 // =====================
 // DRAW ITEMS
 // =====================
 
-function drawItems() {
 
-    items.forEach(item => {
+function drawItems(){
 
-        const sx = item.x * tileSize - camera.x;
-        const sy = item.y * tileSize - camera.y;
 
-        switch (item.type) {
+    items.forEach(item=>{
 
-            case "battery":
 
-                ctx.fillStyle = "#ffe600";
-                break;
+        const sx =
+        item.x * tileSize - camera.x;
 
-            case "medkit":
 
-                ctx.fillStyle = "#ff3333";
-                break;
+        const sy =
+        item.y * tileSize - camera.y;
 
-            case "key":
 
-                ctx.fillStyle = "#00ffff";
-                break;
 
-            default:
+        const img =
+        itemWorldImages[item.type];
 
-                ctx.fillStyle = "#ffffff";
+
+
+        if(img && img.complete){
+
+
+
+            ctx.drawImage(
+
+                img,
+
+                sx + 4,
+
+                sy + 4,
+
+                24,
+
+                24
+
+            );
+
 
         }
 
-        ctx.shadowBlur = 8;
-        ctx.shadowColor = ctx.fillStyle;
-
-        ctx.fillRect(
-
-            sx + 6,
-            sy + 6,
-
-            20,
-            20
-
-        );
-
-        ctx.shadowBlur = 0;
 
     });
+
 
 }
