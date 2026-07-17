@@ -470,3 +470,51 @@ canvas.addEventListener("touchstart",(e)=>{
 
 
 });
+
+
+// =====================
+// USE ITEM
+// =====================
+
+function useSelectedItem(){
+
+
+    const item = inventory[selectedSlot];
+
+
+    if(!item)
+
+        return;
+
+
+
+    switch(item.type){
+
+
+        case "flashlight":
+
+            toggleFlashlight();
+
+            break;
+
+
+
+        case "map":
+
+            openMap();
+
+            break;
+
+
+
+        default:
+
+            console.log(
+                "No action for:",
+                item.type
+            );
+
+    }
+
+
+}
