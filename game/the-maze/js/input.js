@@ -29,11 +29,13 @@ window.addEventListener("keydown", (e) => {
     // FLASHLIGHT
     // =====================
 
-    if (e.key.toLowerCase() === "f") {
+    if (e.code === "KeyF") {
 
-        toggleFlashlight();
+    e.preventDefault();
 
-    }
+    toggleFlashlight();
+
+}
 
 
     // =====================
