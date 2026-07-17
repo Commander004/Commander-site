@@ -3,34 +3,23 @@
 // =====================
 
 
-// Inventory Slots
+// 10 Slots
 
-const inventory = [
-
-    {
-        type: "flashlight",
-        amount: 1
-    },
-
-    {
-        type: "map",
-        amount: 1
-    },
-
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null
-
-];
+const inventory = new Array(10).fill(null);
 
 
+// شروع بازی
 
-// Selected Slot
+inventory[0] = {
+    type: "flashlight"
+};
+
+inventory[1] = {
+    type: "battery"
+};
+
+
+// Slot
 
 let selectedSlot = 0;
 
@@ -40,61 +29,47 @@ let selectedSlot = 0;
 let backpackOpen = false;
 
 
-
 // =====================
-// ITEM IMAGES
+// IMAGES
 // =====================
 
-
-const itemImages = {
+const inventoryImages = {
 
     flashlight: new Image(),
 
-    map: new Image(),
-
     battery: new Image(),
 
-    medkit: new Image(),
+    knife: new Image(),
+
+    gun: new Image(),
 
     key: new Image(),
 
-    gun: new Image()
+    medkit: new Image(),
+
+    food: new Image(),
+
+    water: new Image(),
+
+    map: new Image()
 
 };
 
 
-
-itemImages.flashlight.src =
-"assets/items/flashlight.png";
-
-
-itemImages.map.src =
-"assets/items/map.png";
-
-
-itemImages.battery.src =
-"assets/items/battery.png";
-
-
-itemImages.medkit.src =
-"assets/items/medkit.png";
-
-
-itemImages.key.src =
-"assets/items/key.png";
-
-
-itemImages.gun.src =
-"assets/items/gun.png";
-
-
-
+inventoryImages.flashlight.src = "assets/items/flashlight.png";
+inventoryImages.battery.src = "assets/items/battery.png";
+inventoryImages.knife.src = "assets/items/knife.png";
+inventoryImages.gun.src = "assets/items/gun.png";
+inventoryImages.key.src = "assets/items/key.png";
+inventoryImages.medkit.src = "assets/items/medkit.png";
+inventoryImages.food.src = "assets/items/food.png";
+inventoryImages.water.src = "assets/items/water.png";
+inventoryImages.map.src = "assets/items/map.png";
 
 
 // =====================
 // TOGGLE
 // =====================
-
 
 function toggleBackpack(){
 
@@ -103,16 +78,11 @@ function toggleBackpack(){
 }
 
 
-
-
-
 // =====================
-// SELECT SLOT
+// SLOT
 // =====================
-
 
 function selectSlot(index){
-
 
     if(index >= 0 && index < inventory.length){
 
@@ -120,196 +90,156 @@ function selectSlot(index){
 
     }
 
-
 }
 
 
-
-
-
 // =====================
-// ADD ITEM
+// USE
 // =====================
 
+function useSelectedItem(){
 
-function addItem(type){
+    const item = inventory[selectedSlot];
 
-
-    for(let i = 0; i < inventory.length; i++){
-
-
-        if(inventory[i] === null){
+    if(!item) return;
 
 
-            inventory[i] = {
+    switch(item.type){
 
-                type:type,
+        case "flashlight":
 
-                amount:1
+            toggleFlashlight();
 
-            };
+            break;
 
 
-            return true;
+        case "battery":
 
-        }
+            addBattery(25);
 
+            inventory[selectedSlot] = null;
+
+            break;
+
+
+        case "medkit":
+
+            player.health += 25;
+
+            if(player.health > 100)
+                player.health = 100;
+
+            inventory[selectedSlot] = null;
+
+            break;
+
+
+        case "food":
+
+            inventory[selectedSlot] = null;
+
+            break;
+
+
+        case "water":
+
+            inventory[selectedSlot] = null;
+
+            break;
+
+
+        case "knife":
+
+            console.log("Knife Attack");
+
+            break;
+
+
+        case "gun":
+
+            console.log("Shoot");
+
+            break;
+
+
+        case "map":
+
+            console.log("Map");
+
+            break;
+
+
+        case "key":
+
+            console.log("Key");
+
+            break;
 
     }
 
-
-    return false;
-
-
 }
-
-
-
 
 
 // =====================
 // UPDATE
 // =====================
 
-
 function updateInventory(){
 
-
 }
-
-
-
 
 
 // =====================
 // DRAW
 // =====================
 
-
 function drawInventory(){
 
-
     if(!backpackOpen)
-
         return;
 
 
-
     const width = 420;
-
     const height = 220;
 
+    const x = canvas.width/2-width/2;
+    const y = canvas.height-height-20;
 
 
-    const x = canvas.width / 2 - width / 2;
+    ctx.fillStyle="rgba(20,20,30,.95)";
+    ctx.strokeStyle="#8b5cf6";
+    ctx.lineWidth=2;
 
-    const y = canvas.height - height - 20;
+    ctx.fillRect(x,y,width,height);
 
+    ctx.strokeRect(x,y,width,height);
 
 
+    ctx.fillStyle="white";
+    ctx.font="20px Arial";
+    ctx.fillText("Backpack",x+20,y+30);
 
 
-    // PANEL
+    const slot=48;
+    const gap=12;
 
 
-    ctx.fillStyle = "rgba(20,20,30,.95)";
+    for(let i=0;i<10;i++){
 
-    ctx.strokeStyle = "#8b5cf6";
+        const col=i%5;
+        const row=Math.floor(i/5);
 
-    ctx.lineWidth = 2;
+        const sx=x+25+col*(slot+gap);
+        const sy=y+55+row*(slot+gap);
 
 
+        ctx.fillStyle=
 
-    ctx.fillRect(
-
-        x,
-
-        y,
-
-        width,
-
-        height
-
-    );
-
-
-    ctx.strokeRect(
-
-        x,
-
-        y,
-
-        width,
-
-        height
-
-    );
-
-
-
-
-
-
-    // TITLE
-
-
-    ctx.fillStyle = "white";
-
-    ctx.font = "20px Arial";
-
-
-    ctx.fillText(
-
-        "Backpack",
-
-        x + 20,
-
-        y + 30
-
-    );
-
-
-
-
-
-
-    // SLOTS
-
-
-    const slot = 48;
-
-    const gap = 12;
-
-
-
-
-    for(let i = 0; i < 10; i++){
-
-
-
-        const col = i % 5;
-
-        const row = Math.floor(i / 5);
-
-
-
-        const sx = x + 25 + col * (slot + gap);
-
-        const sy = y + 55 + row * (slot + gap);
-
-
-
-
-
-
-        ctx.fillStyle =
-
-        i === selectedSlot
+        i===selectedSlot
 
         ? "#8b5cf6"
 
         : "#2a2a35";
-
 
 
         ctx.fillRect(
@@ -325,10 +255,7 @@ function drawInventory(){
         );
 
 
-
-
         ctx.strokeStyle="#b794ff";
-
 
         ctx.strokeRect(
 
@@ -343,32 +270,21 @@ function drawInventory(){
         );
 
 
+        const item=inventory[i];
 
+        if(item){
 
+            const img=inventoryImages[item.type];
 
-
-
-        // DRAW ITEM IMAGE
-
-
-        if(inventory[i]){
-
-
-            const img = itemImages[inventory[i].type];
-
-
-
-            if(img && img.complete){
-
-
+            if(img.complete){
 
                 ctx.drawImage(
 
                     img,
 
-                    sx + 6,
+                    sx+6,
 
-                    sy + 6,
+                    sy+6,
 
                     36,
 
@@ -376,145 +292,67 @@ function drawInventory(){
 
                 );
 
-
             }
 
-
         }
 
+    }
 
+
+    // Selected Item Name
+
+    const current=inventory[selectedSlot];
+
+    if(current){
+
+        ctx.fillStyle="white";
+
+        ctx.font="18px Arial";
+
+        ctx.fillText(
+
+            current.type.toUpperCase(),
+
+            x+20,
+
+            y+190
+
+        );
 
     }
 
 
+    // Use Button
 
-}
+    const bx=x+290;
+    const by=y+170;
 
+    ctx.fillStyle="#8b5cf6";
 
-// =====================
-// MOBILE SLOT SELECT
-// =====================
+    ctx.fillRect(
 
+        bx,
 
-canvas.addEventListener("touchstart",(e)=>{
+        by,
 
+        90,
 
-    if(!backpackOpen)
+        35
 
-        return;
+    );
 
+    ctx.fillStyle="white";
 
+    ctx.font="18px Arial";
 
-    const rect = canvas.getBoundingClientRect();
+    ctx.fillText(
 
+        "USE",
 
-    const touch = e.touches[0];
+        bx+23,
 
+        by+23
 
-    const mx = touch.clientX - rect.left;
-
-    const my = touch.clientY - rect.top;
-
-
-
-    const width = 420;
-
-    const height = 220;
-
-
-    const x = canvas.width / 2 - width / 2;
-
-    const y = canvas.height - height - 20;
-
-
-
-    const slot = 48;
-
-    const gap = 12;
-
-
-
-    for(let i=0;i<10;i++){
-
-
-        const col = i % 5;
-
-        const row = Math.floor(i / 5);
-
-
-
-        const sx = x + 25 + col * (slot + gap);
-
-        const sy = y + 55 + row * (slot + gap);
-
-
-
-        if(
-
-            mx >= sx &&
-
-            mx <= sx + slot &&
-
-            my >= sy &&
-
-            my <= sy + slot
-
-        ){
-
-            selectSlot(i);
-
-        }
-
-
-    }
-
-
-});
-
-
-// =====================
-// USE ITEM
-// =====================
-
-function useSelectedItem(){
-
-
-    const item = inventory[selectedSlot];
-
-
-    if(!item)
-
-        return;
-
-
-
-    switch(item.type){
-
-
-        case "flashlight":
-
-            toggleFlashlight();
-
-            break;
-
-
-
-        case "map":
-
-            openMap();
-
-            break;
-
-
-
-        default:
-
-            console.log(
-                "No action for:",
-                item.type
-            );
-
-    }
-
+    );
 
 }
