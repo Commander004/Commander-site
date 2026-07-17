@@ -1,1 +1,127 @@
+// =====================
+// INVENTORY
+// =====================
 
+// 10 Slot Inventory
+
+const inventory = new Array(10).fill(null);
+
+
+// Selected Slot
+
+let selectedSlot = 0;
+
+
+// Backpack
+
+let backpackOpen = false;
+
+
+// =====================
+// TOGGLE
+// =====================
+
+function toggleBackpack() {
+
+    backpackOpen = !backpackOpen;
+
+}
+
+
+// =====================
+// SELECT SLOT
+// =====================
+
+function selectSlot(index) {
+
+    if (index >= 0 && index < inventory.length) {
+
+        selectedSlot = index;
+
+    }
+
+}
+
+
+// =====================
+// UPDATE
+// =====================
+
+function updateInventory() {
+
+    // بعداً:
+    // برداشتن آیتم
+    // Use
+    // Shoot
+    // Drag
+    // Stack
+
+}
+
+
+// =====================
+// DRAW
+// =====================
+
+function drawInventory() {
+
+    if (!backpackOpen) return;
+
+    const width = 420;
+    const height = 220;
+
+    const x = canvas.width / 2 - width / 2;
+    const y = canvas.height - height - 20;
+
+    // پنل
+
+    ctx.fillStyle = "rgba(20,20,30,.95)";
+    ctx.strokeStyle = "#8b5cf6";
+    ctx.lineWidth = 2;
+
+    ctx.fillRect(x, y, width, height);
+    ctx.strokeRect(x, y, width, height);
+
+    // عنوان
+
+    ctx.fillStyle = "white";
+    ctx.font = "20px Arial";
+    ctx.fillText("Backpack", x + 20, y + 30);
+
+    // اسلات‌ها
+
+    const slot = 48;
+    const gap = 12;
+
+    for (let i = 0; i < 10; i++) {
+
+        const col = i % 5;
+        const row = Math.floor(i / 5);
+
+        const sx = x + 25 + col * (slot + gap);
+        const sy = y + 55 + row * (slot + gap);
+
+        ctx.fillStyle =
+            i === selectedSlot
+                ? "#8b5cf6"
+                : "#2a2a35";
+
+        ctx.fillRect(
+            sx,
+            sy,
+            slot,
+            slot
+        );
+
+        ctx.strokeStyle = "#b794ff";
+
+        ctx.strokeRect(
+            sx,
+            sy,
+            slot,
+            slot
+        );
+
+    }
+
+}
