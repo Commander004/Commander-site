@@ -3,7 +3,7 @@
 // =====================
 
 
-// 10 Slot Inventory
+// Inventory Slots
 
 const inventory = [
 
@@ -35,15 +35,66 @@ const inventory = [
 let selectedSlot = 0;
 
 
-// Backpack State
+// Backpack
 
 let backpackOpen = false;
 
 
 
 // =====================
-// TOGGLE BACKPACK
+// ITEM IMAGES
 // =====================
+
+
+const itemImages = {
+
+    flashlight: new Image(),
+
+    map: new Image(),
+
+    battery: new Image(),
+
+    medkit: new Image(),
+
+    key: new Image(),
+
+    gun: new Image()
+
+};
+
+
+
+itemImages.flashlight.src =
+"assets/items/flashlight.png";
+
+
+itemImages.map.src =
+"assets/items/map.png";
+
+
+itemImages.battery.src =
+"assets/items/battery.png";
+
+
+itemImages.medkit.src =
+"assets/items/medkit.png";
+
+
+itemImages.key.src =
+"assets/items/key.png";
+
+
+itemImages.gun.src =
+"assets/items/gun.png";
+
+
+
+
+
+// =====================
+// TOGGLE
+// =====================
+
 
 function toggleBackpack(){
 
@@ -53,11 +104,15 @@ function toggleBackpack(){
 
 
 
+
+
 // =====================
 // SELECT SLOT
 // =====================
 
+
 function selectSlot(index){
+
 
     if(index >= 0 && index < inventory.length){
 
@@ -65,7 +120,10 @@ function selectSlot(index){
 
     }
 
+
 }
+
+
 
 
 
@@ -73,30 +131,39 @@ function selectSlot(index){
 // ADD ITEM
 // =====================
 
-function addItem(item){
+
+function addItem(type){
+
 
     for(let i = 0; i < inventory.length; i++){
 
+
         if(inventory[i] === null){
+
 
             inventory[i] = {
 
-                type:item,
+                type:type,
 
                 amount:1
 
             };
 
+
             return true;
 
         }
+
 
     }
 
 
     return false;
 
+
 }
+
+
 
 
 
@@ -104,23 +171,20 @@ function addItem(item){
 // UPDATE
 // =====================
 
+
 function updateInventory(){
-
-
-    // بعداً:
-    // Pick up items
-    // Use items
-    // Stack system
-    // Drop items
 
 
 }
 
 
 
+
+
 // =====================
 // DRAW
 // =====================
+
 
 function drawInventory(){
 
@@ -143,7 +207,10 @@ function drawInventory(){
 
 
 
+
+
     // PANEL
+
 
     ctx.fillStyle = "rgba(20,20,30,.95)";
 
@@ -181,7 +248,10 @@ function drawInventory(){
 
 
 
+
+
     // TITLE
+
 
     ctx.fillStyle = "white";
 
@@ -202,12 +272,14 @@ function drawInventory(){
 
 
 
+
     // SLOTS
 
 
     const slot = 48;
 
     const gap = 12;
+
 
 
 
@@ -228,16 +300,15 @@ function drawInventory(){
 
 
 
-        // SLOT BACKGROUND
 
 
         ctx.fillStyle =
 
-            i === selectedSlot
+        i === selectedSlot
 
-            ? "#8b5cf6"
+        ? "#8b5cf6"
 
-            : "#2a2a35";
+        : "#2a2a35";
 
 
 
@@ -256,7 +327,8 @@ function drawInventory(){
 
 
 
-        ctx.strokeStyle = "#b794ff";
+        ctx.strokeStyle="#b794ff";
+
 
         ctx.strokeRect(
 
@@ -274,26 +346,38 @@ function drawInventory(){
 
 
 
-        // ITEM TEXT
+
+
+        // DRAW ITEM IMAGE
 
 
         if(inventory[i]){
 
 
-            ctx.fillStyle = "white";
-
-            ctx.font = "10px Arial";
+            const img = itemImages[inventory[i].type];
 
 
-            ctx.fillText(
 
-                inventory[i].type,
+            if(img && img.complete){
 
-                sx + 3,
 
-                sy + 28
 
-            );
+                ctx.drawImage(
+
+                    img,
+
+                    sx + 6,
+
+                    sy + 6,
+
+                    36,
+
+                    36
+
+                );
+
+
+            }
 
 
         }
