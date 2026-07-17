@@ -389,3 +389,84 @@ function drawInventory(){
 
 
 }
+
+
+// =====================
+// MOBILE SLOT SELECT
+// =====================
+
+
+canvas.addEventListener("touchstart",(e)=>{
+
+
+    if(!backpackOpen)
+
+        return;
+
+
+
+    const rect = canvas.getBoundingClientRect();
+
+
+    const touch = e.touches[0];
+
+
+    const mx = touch.clientX - rect.left;
+
+    const my = touch.clientY - rect.top;
+
+
+
+    const width = 420;
+
+    const height = 220;
+
+
+    const x = canvas.width / 2 - width / 2;
+
+    const y = canvas.height - height - 20;
+
+
+
+    const slot = 48;
+
+    const gap = 12;
+
+
+
+    for(let i=0;i<10;i++){
+
+
+        const col = i % 5;
+
+        const row = Math.floor(i / 5);
+
+
+
+        const sx = x + 25 + col * (slot + gap);
+
+        const sy = y + 55 + row * (slot + gap);
+
+
+
+        if(
+
+            mx >= sx &&
+
+            mx <= sx + slot &&
+
+            my >= sy &&
+
+            my <= sy + slot
+
+        ){
+
+            selectSlot(i);
+
+        }
+
+
+    }
+
+
+});
