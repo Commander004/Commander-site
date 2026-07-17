@@ -2,7 +2,91 @@
 // UI
 // =====================
 
-function updateUI(){}
+function updateUI() {
+
+}
+
+
+
+// =====================
+// BATTERY BAR
+// =====================
+
+function drawBatteryBar() {
+
+    const x = 20;
+    const y = 20;
+
+    const width = 220;
+    const height = 22;
+
+    // Background
+
+    ctx.fillStyle = "#222";
+
+    ctx.fillRect(
+
+        x,
+
+        y,
+
+        width,
+
+        height
+
+    );
+
+    // Battery
+
+    ctx.fillStyle = "#ffe600";
+
+    ctx.fillRect(
+
+        x,
+
+        y,
+
+        width * (battery / 100),
+
+        height
+
+    );
+
+    // Border
+
+    ctx.strokeStyle = "#ffffff";
+
+    ctx.lineWidth = 2;
+
+    ctx.strokeRect(
+
+        x,
+
+        y,
+
+        width,
+
+        height
+
+    );
+
+    // Text
+
+    ctx.fillStyle = "#ffffff";
+
+    ctx.font = "16px Arial";
+
+    ctx.fillText(
+
+        "🔋 Battery " + Math.floor(battery) + "%",
+
+        x + 40,
+
+        y + 17
+
+    );
+
+}
 
 
 
@@ -10,9 +94,9 @@ function updateUI(){}
 // HEALTH BAR
 // =====================
 
-function drawHealthBar(){
+function drawHealthBar() {
 
-    const x = 55;
+    const x = 20;
     const y = 55;
 
     const width = 220;
@@ -22,7 +106,17 @@ function drawHealthBar(){
 
     ctx.fillStyle = "#222";
 
-    ctx.fillRect(x,y,width,height);
+    ctx.fillRect(
+
+        x,
+
+        y,
+
+        width,
+
+        height
+
+    );
 
     // Health
 
@@ -60,15 +154,15 @@ function drawHealthBar(){
 
     // Text
 
-    ctx.fillStyle = "white";
+    ctx.fillStyle = "#ffffff";
 
     ctx.font = "16px Arial";
 
     ctx.fillText(
 
-        "Health " + player.health + "%",
+        "❤️ Health " + player.health + "%",
 
-        x + 60,
+        x + 45,
 
         y + 17
 
@@ -82,12 +176,12 @@ function drawHealthBar(){
 // DRAW UI
 // =====================
 
-function drawUI(){
+function drawUI() {
 
     drawBatteryBar();
-    
-    drawInventory();
 
     drawHealthBar();
+
+    drawInventory();
 
 }
