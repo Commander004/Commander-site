@@ -16,3 +16,7 @@ window.addEventListener("keyup", (e) => {
     keys[e.key.toLowerCase()] = false;
 
 });
+
+window.addEventListener("keydown", (e) => {
+    console.log("Key:", e.key);
+});
