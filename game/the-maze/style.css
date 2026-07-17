@@ -1,18 +1,125 @@
-body {
-    margin: 0;
-    background: #050505;
-    color: white;
-    font-family: Arial, sans-serif;
-    text-align: center;
+/* ===========================
+   Reset
+=========================== */
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
 }
 
-h1 {
-    color: #8b5cff;
-    text-shadow: 0 0 15px #8b5cff;
+/* ===========================
+   Body
+=========================== */
+
+body{
+
+    background:#050505;
+
+    color:white;
+
+    font-family:Arial,sans-serif;
+
+    text-align:center;
+
+    overflow:hidden;
+
 }
 
-canvas {
-    background: #111;
-    border: 2px solid #6d3cff;
-    box-shadow: 0 0 25px #6d3cff;
+/* ===========================
+   Title
+=========================== */
+
+h1{
+
+    margin:18px 0;
+
+    color:#8b5cff;
+
+    text-shadow:
+    0 0 10px #8b5cff,
+    0 0 30px #8b5cff;
+
+    font-size:40px;
+
+    user-select:none;
+
+}
+
+/* ===========================
+   Canvas
+=========================== */
+
+canvas{
+
+    display:block;
+
+    margin:auto;
+
+    background:#111;
+
+    border:2px solid #6d3cff;
+
+    box-shadow:
+
+    0 0 20px #6d3cff,
+
+    0 0 50px rgba(109,60,255,.5);
+
+}
+
+/* ===========================
+   Future UI
+=========================== */
+
+.ui{
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+}
+
+/* ===========================
+   Backpack
+=========================== */
+
+.inventory{
+
+    position:fixed;
+
+    left:50%;
+
+    bottom:-350px;
+
+    transform:translateX(-50%);
+
+    width:430px;
+
+    max-width:92%;
+
+    height:260px;
+
+    border-radius:20px;
+
+    background:rgba(25,25,35,.92);
+
+    border:2px solid #8b5cff;
+
+    box-shadow:
+
+    0 0 35px rgba(139,92,255,.6);
+
+    transition:.35s;
+
+}
+
+.inventory.open{
+
+    bottom:20px;
+
 }
